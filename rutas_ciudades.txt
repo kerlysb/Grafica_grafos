@@ -1,0 +1,12 @@
+DIRIGIDO=NO
+NODOS
+Quito,Guayaquil,Cuenca,Manta,Loja,Ambato
+
+ARISTAS
+Quito-Ambato-135
+Ambato-Guayaquil-190
+Quito-Guayaquil-420
+Guayaquil-Manta-190
+Guayaquil-Cuenca-250
+Cuenca-Loja-200
+Ambato-Cuenca-180
