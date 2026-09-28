@@ -1,0 +1,12 @@
+DIRIGIDO=SI
+NODOS
+Ana,Bruno,Carla,David,Elena,Fernando
+
+ARISTAS
+Ana-Bruno-1
+Ana-Carla-1
+Bruno-David-1
+Carla-David-1
+David-Elena-1
+Elena-Fernando-1
+Fernando-Ana-1
