@@ -89,4 +89,47 @@ namespace GrafosVisual
 
             posicionesNodos = new Dictionary<string, Point>();
         }
-        
+        private void BtnCargar_Click(object sender, EventArgs e)
+        {
+            string ruta;
+            if (cmbEjemplo.SelectedIndex == 0)
+                ruta = "rutas_ciudades.txt";
+            else
+                ruta = "red_social.txt";
+
+            if (!System.IO.File.Exists(ruta))
+            {
+                MessageBox.Show("No se encontró el archivo: " + ruta);
+                return;
+            }
+
+            grafoActual = LectorGrafo.CargarDesdeArchivo(ruta);
+            CalcularPosicionesNodos();
+
+            cmbNodoConsulta.Items.Clear();
+            foreach (string nodo in grafoActual.Nodos)
+                cmbNodoConsulta.Items.Add(nodo);
+            if (cmbNodoConsulta.Items.Count > 0)
+                cmbNodoConsulta.SelectedIndex = 0;
+
+            lstReporte.Items.Clear();
+            txtResultadoConsulta.Clear();
+            pnlGrafico.Invalidate();
+        }
+
+        private void CalcularPosicionesNodos()
+        {
+            posicionesNodos.Clear();
+            int cantidad = grafoActual.Nodos.Count;
+            int centroX = pnlGrafico.Width / 2;
+            int centroY = pnlGrafico.Height / 2;
+            int radio = Math.Min(centroX, centroY) - 60;
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                double angulo = 2 * Math.PI * i / cantidad;
+                int x = centroX + (int)(radio * Math.Cos(angulo));
+                int y = centroY + (int)(radio * Math.Sin(angulo));
+                posicionesNodos[grafoActual.Nodos[i]] = new Point(x, y);
+            }
+        }
