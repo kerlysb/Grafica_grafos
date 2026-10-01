@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Grafica_grafos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e5b0cb0b3aa472808dc4781f6196061dfd374d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Grafica_grafos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Grafica_grafos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

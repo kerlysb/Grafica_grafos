@@ -12,3 +12,4 @@ C:\Users\kerli\Grafica_grafos\obj\Debug\net10.0\refint\Grafica_grafos.dll
 C:\Users\kerli\Grafica_grafos\obj\Debug\net10.0\Grafica_grafos.pdb
 C:\Users\kerli\Grafica_grafos\obj\Debug\net10.0\Grafica_grafos.genruntimeconfig.cache
 C:\Users\kerli\Grafica_grafos\obj\Debug\net10.0\ref\Grafica_grafos.dll
+C:\Users\kerli\Grafica_grafos\obj\Debug\net10.0\Grafica_grafos.sourcelink.json

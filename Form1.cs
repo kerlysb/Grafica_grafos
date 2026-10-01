@@ -89,6 +89,7 @@ namespace GrafosVisual
 
             posicionesNodos = new Dictionary<string, Point>();
         }
+
         private void BtnCargar_Click(object sender, EventArgs e)
         {
             string ruta;
@@ -133,6 +134,7 @@ namespace GrafosVisual
                 posicionesNodos[grafoActual.Nodos[i]] = new Point(x, y);
             }
         }
+
         private void PnlGrafico_Paint(object sender, PaintEventArgs e)
         {
             if (grafoActual == null) return;
@@ -195,6 +197,7 @@ namespace GrafosVisual
 
             g.FillPolygon(Brushes.SteelBlue, new Point[] { puntaFlecha, ala1, ala2 });
         }
+
         private void BtnConsultar_Click(object sender, EventArgs e)
         {
             if (grafoActual == null || cmbNodoConsulta.SelectedItem == null) return;
