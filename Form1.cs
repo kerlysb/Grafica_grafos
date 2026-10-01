@@ -195,3 +195,42 @@ namespace GrafosVisual
 
             g.FillPolygon(Brushes.SteelBlue, new Point[] { puntaFlecha, ala1, ala2 });
         }
+        private void BtnConsultar_Click(object sender, EventArgs e)
+        {
+            if (grafoActual == null || cmbNodoConsulta.SelectedItem == null) return;
+
+            string nodo = cmbNodoConsulta.SelectedItem.ToString();
+            int grado = grafoActual.ObtenerGrado(nodo);
+            List<string> vecinos = grafoActual.ObtenerVecinos(nodo);
+
+            string resultado = "Nodo: " + nodo + Environment.NewLine;
+            resultado += "Grado: " + grado + Environment.NewLine;
+            resultado += "Vecinos: " + (vecinos.Count > 0 ? string.Join(", ", vecinos) : "Ninguno");
+
+            txtResultadoConsulta.Text = resultado;
+        }
+
+        private void BtnReporteCompleto_Click(object sender, EventArgs e)
+        {
+            if (grafoActual == null) return;
+
+            lstReporte.Items.Clear();
+            lstReporte.Items.Add("Tipo: " + (grafoActual.EsDirigido ? "Dirigido" : "No dirigido"));
+            lstReporte.Items.Add("Total de nodos: " + grafoActual.ContarNodos());
+            lstReporte.Items.Add("Total de aristas: " + grafoActual.ContarAristas());
+            lstReporte.Items.Add("---- Nodos y grado ----");
+
+            foreach (string nodo in grafoActual.Nodos)
+                lstReporte.Items.Add(nodo + " (grado: " + grafoActual.ObtenerGrado(nodo) + ")");
+
+            lstReporte.Items.Add("---- Lista de aristas ----");
+            foreach (Arista arista in grafoActual.ObtenerTodasLasAristas())
+            {
+                string texto = arista.Origen + (grafoActual.EsDirigido ? " -> " : " -- ") + arista.Destino;
+                if (arista.Peso > 1)
+                    texto += " (peso: " + arista.Peso + ")";
+                lstReporte.Items.Add(texto);
+            }
+        }
+    }
+}
