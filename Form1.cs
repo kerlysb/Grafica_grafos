@@ -133,3 +133,65 @@ namespace GrafosVisual
                 posicionesNodos[grafoActual.Nodos[i]] = new Point(x, y);
             }
         }
+        private void PnlGrafico_Paint(object sender, PaintEventArgs e)
+        {
+            if (grafoActual == null) return;
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            Pen lapizArista = new Pen(Color.SteelBlue, 2);
+            Font fuenteEtiqueta = new Font("Segoe UI", 9, FontStyle.Bold);
+            Font fuentePeso = new Font("Segoe UI", 8);
+            Brush pincelNodo = new SolidBrush(Color.LightSkyBlue);
+            Brush pincelTexto = new SolidBrush(Color.Black);
+
+            List<Arista> aristas = grafoActual.ObtenerTodasLasAristas();
+            foreach (Arista arista in aristas)
+            {
+                Point p1 = posicionesNodos[arista.Origen];
+                Point p2 = posicionesNodos[arista.Destino];
+                g.DrawLine(lapizArista, p1, p2);
+
+                if (grafoActual.EsDirigido)
+                    DibujarFlecha(g, p1, p2);
+
+                Point puntoMedio = new Point((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+                if (arista.Peso > 1)
+                    g.DrawString(arista.Peso.ToString(), fuentePeso, pincelTexto, puntoMedio);
+            }
+
+            int radioNodo = 22;
+            foreach (string nodo in grafoActual.Nodos)
+            {
+                Point p = posicionesNodos[nodo];
+                Rectangle rect = new Rectangle(p.X - radioNodo, p.Y - radioNodo, radioNodo * 2, radioNodo * 2);
+                g.FillEllipse(pincelNodo, rect);
+                g.DrawEllipse(Pens.SteelBlue, rect);
+
+                SizeF tamanoTexto = g.MeasureString(nodo, fuenteEtiqueta);
+                g.DrawString(nodo, fuenteEtiqueta, pincelTexto, p.X - tamanoTexto.Width / 2, p.Y - tamanoTexto.Height / 2);
+            }
+        }
+
+        private void DibujarFlecha(Graphics g, Point origen, Point destino)
+        {
+            double angulo = Math.Atan2(destino.Y - origen.Y, destino.X - origen.X);
+            int radioNodo = 22;
+            Point puntaFlecha = new Point(
+                destino.X - (int)(radioNodo * Math.Cos(angulo)),
+                destino.Y - (int)(radioNodo * Math.Sin(angulo)));
+
+            double anguloAla = Math.PI / 7;
+            int largoAla = 10;
+
+            Point ala1 = new Point(
+                puntaFlecha.X - (int)(largoAla * Math.Cos(angulo - anguloAla)),
+                puntaFlecha.Y - (int)(largoAla * Math.Sin(angulo - anguloAla)));
+
+            Point ala2 = new Point(
+                puntaFlecha.X - (int)(largoAla * Math.Cos(angulo + anguloAla)),
+                puntaFlecha.Y - (int)(largoAla * Math.Sin(angulo + anguloAla)));
+
+            g.FillPolygon(Brushes.SteelBlue, new Point[] { puntaFlecha, ala1, ala2 });
+        }
